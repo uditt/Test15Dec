@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="styles.css">
+</head>
+<body ng-app="calendarApp">
+	<div ng-controller="calendarCtrl">
+		<div class="month">      
+		  <ul>
+		    <li class="prev">❮</li>
+		    <li class="next">❯</li>
+		    <li style="text-align:center">
+		      {{month.name}}<br>
+		      <span style="font-size:18px">{{month.year}}</span>
+		    </li>
+		  </ul>
+		</div>
+
+		<ul class="weekdays">
+		  <li ng-repeat="week in ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']">{{week}}</li>
+		</ul>
+
+		<ul class="days">  
+		  <li style="position:relative" ng-repeat="day in days">{{day.date}}<button ng-click="addEvent(day)">+</button>
+		  	<div style="position:absolute">
+		  		<p  class="events" ng-repeat="event in day.events" ng-dblclick="event.editMode=true"><input ng-show="event.editMode" ng-model="event.subject" ng-enter="clicked(event,day)" placeholder="Subject"><input ng-show="event.editMode" ng-model="event.start" placeholder="time(24hr)" type="number" ng-enter="clicked(event,day)"><input ng-show="event.editMode" ng-model="event.end" type="number" placeholder="endtime(24hr)" ng-enter="clicked(event,day)"><span ng-hide="event.editMode">{{event.subject}}@</span><span ng-hide="event.editMode">{{event.start}}-</span><span ng-hide="event.editMode">{{event.end}}</span></p>
+		  	
+		 	</div>
+		  </li>
+		</ul>
+	</div>
+
+	<script src="ng.js"></script>
+	<script src="route.js"></script>
+	<script src="app.js"></script>
+</body>
+</html>
